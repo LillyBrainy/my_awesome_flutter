@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "657375572122",
+    "firebase_url": "https://g1-practice.firebaseio.com",
+    "project_id": "g1-practice",
+    "storage_bucket": "g1-practice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657375572122:android:287924980e217dbb65ef23",
+        "android_client_info": {
+          "package_name": "com.example.cait_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657375572122-c1ced2j051o5fir350usf8idktu9s6dh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrGfMKrNP62olbnUvmfuMkCYb5DX9OCHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657375572122-c1ced2j051o5fir350usf8idktu9s6dh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "657375572122-7pumc1012ldrg2ppf4vu6ruqu616n59a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.caitFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657375572122:android:f33ee36fd57f773965ef23",
+        "android_client_info": {
+          "package_name": "com.example.my_awesome_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "657375572122-c1ced2j051o5fir350usf8idktu9s6dh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrGfMKrNP62olbnUvmfuMkCYb5DX9OCHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "657375572122-c1ced2j051o5fir350usf8idktu9s6dh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "657375572122-7pumc1012ldrg2ppf4vu6ruqu616n59a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.caitFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
