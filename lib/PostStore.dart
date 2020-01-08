@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class PostStore  extends ChangeNotifier{
-  var posts =[];
+  List posts = [];
 
   handleFetchPosts() async {
     String url = 'http://kld.pythonanywhere.com/ListPost/';
@@ -12,11 +12,10 @@ class PostStore  extends ChangeNotifier{
     print('statusCode $statusCode');
     if(statusCode < 400){
       String json = response.body;
-      print('json $json');
-      var data =jsonDecode(json);
+      var data =jsonDecode(json)['results'] as List;
       print('data $data');
       if(data != null){
-        posts = data;
+         posts = data;
         print('posts $posts');
         notifyListeners();
       }

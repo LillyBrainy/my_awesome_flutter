@@ -1,17 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class ProfileStore  extends ChangeNotifier{
   //Variables
   var userProfile = {'id':'','name' : '', 'nationality': '','civilID' : '','date_of_birth' : ''};
 
-
+  final storage = new FlutterSecureStorage();
   updateUserProfile(profileID,name,nationality,civilID,dateOfBirth) async{
+  String tokenUser = await storage.read(key: 'token');
     print('$name $nationality $civilID $dateOfBirth');
     String url = 'http://kld.pythonanywhere.com/updateProfile/$profileID/';
-    Map<String, String> headers = {"Content-type":"application/json"};
     String json = '{"name":"$name", "nationality": "$nationality","civilID": "$civilID","date_of_birth": "$dateOfBirth"}';// make PUT request
-    Response response = await put(url, headers: headers, body: json);
+    Response response = await put(url, headers: {HttpHeaders.authorizationHeader:'JWT $tokenUser'}, body: json);
     int statusCode = response.statusCode;
     print(statusCode);
     if(statusCode < 400){
@@ -32,8 +35,12 @@ class ProfileStore  extends ChangeNotifier{
 
   fetchUserProfile(userID) async{
     print(userID);
-    String url = 'http://kld.pythonanywhere.com/userProfile/$userID';
-    Response response = await get(url);
+    String tokenUser = await storage.read(key: 'token');
+    print('tokenUser $tokenUser');
+    String url = 'http://kld.pythonanywhere.com/userProfile/';
+//    Map<String, String> headers = {"Content-type":"application/json,  'Accept': 'application/json','Authorization': 'JWT $tokenUser'"};
+
+    Response response = await get(url, headers: {HttpHeaders.authorizationHeader:'JWT $tokenUser'});
     int statusCode = response.statusCode;
     print('statusCode $statusCode');
     if(statusCode < 400){

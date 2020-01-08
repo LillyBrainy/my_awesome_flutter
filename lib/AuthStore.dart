@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -17,6 +19,7 @@ class AuthStore  extends ChangeNotifier{
   final storage = new FlutterSecureStorage();
 
   handleLogin(phoneNumber,pin) async {
+
     String url = 'http://kld.pythonanywhere.com/login/';
     Map<String, String> headers = {"Content-type": "application/json"};
     String json =
@@ -43,6 +46,7 @@ class AuthStore  extends ChangeNotifier{
   }
   handleRegistration(phoneNumber,pin) async {
     // set up POST request arguments
+
     String url = 'http://kld.pythonanywhere.com/registration/';
     Map<String, String> headers = {"Content-type": "application/json"};
     String json =
@@ -73,21 +77,26 @@ class AuthStore  extends ChangeNotifier{
   }
 
   createFCMDevice(user,username) async {
+    String tokenUser = await storage.read(key: 'token');
+
     final FirebaseMessaging _firebaseMessagin = FirebaseMessaging();
+
     var token = await _firebaseMessagin.getToken();
     print('This is FCM Token : $token \n');
     print('user $user');
+    print('tokenUser $tokenUser');
 
-    String url = 'http://kld.pythonanywhere.com/fcm/create/$user/';
 
-    Map<String, String> headers = {"Content-type":"application/json"};
+    String url = 'http://kld.pythonanywhere.com/fcm/create/';
+
+    Map<String, String> headers = {"Content-type":"application/json",'Authorization': 'JWT $tokenUser'};
     String json =
-        '{"name":"$username", "active":"${true}","device_id":"android","registration_id":"$token", "type":"android", "user":"$user"}';
+        '{"name":"$username", "active":"true","device_id":"android","registration_id":"$token", "type":"android", "user":"$user"}';
 
-    Response response = await post(url,headers: headers, body:json);
+    Response response = await post(url, headers: headers, body:json);
     int statusCode = response.statusCode;
     print(statusCode);
-    print('response $response');
+    print('fcm_response $statusCode');
 
 
   }

@@ -8,6 +8,8 @@ import 'package:my_awesome_app/PostStore.dart';
  }
 
  class _HomeFeedPageState extends State<HomeFeedPage> {
+   final _scrollController = ScrollController();
+
    @override
    void initState() {
      super.initState();
@@ -15,8 +17,15 @@ import 'package:my_awesome_app/PostStore.dart';
    Future.delayed(Duration(seconds: 0)).then((value) {
       Provider.of<PostStore>(context, listen: false).handleFetchPosts();
     });
+     _scrollController.addListener(() {
+       if (_scrollController.position.pixels ==
+           _scrollController.position.maxScrollExtent) {
+//         Provider.of<PostStore>(context).fetchMorePostCards();
+       }
+     });
 
          }
+
        @override
    Widget build(BuildContext context) {
         final PostStore postStore = Provider.of<PostStore>(context);
@@ -42,26 +51,24 @@ import 'package:my_awesome_app/PostStore.dart';
      ),
          body: ListView.separated(
          padding: const EdgeInsets.all(8),
+           controller: _scrollController,
              itemCount: postStore.posts.length,
          itemBuilder:(BuildContext context, int index) {
 
 
       return Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
 
           children: <Widget>[
-            
-            Image(
-              image: NetworkImage(postStore.posts[index]['image']),
 
-
-            ),
+            (postStore.posts[index]['image'] !=null)?Image(image: NetworkImage(postStore.posts[index]['image']), width: 100,height:100,):Text(''),
             Container(
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Text(postStore.posts[index]['caption'],
-                    style: TextStyle(color: Color(0xFF7D7D7D)),),
+                    style: TextStyle(color: Color(0xFF7D7D7D),),),
                 )
             ),
           ],
